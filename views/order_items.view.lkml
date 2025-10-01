@@ -3,8 +3,11 @@ view: order_items {
   sql_table_name: sheila-gallardo-sandbox-01.looker_example.order_items ;;
 
   # Define your dimensions and measures here, like this:
-  dimension: user_id {
-
+  dimension: pk_user_id {
+    hidden: yes
+    label: "ID"
+    primary_key: yes
+    description: "user"
     type: number
     sql: ${TABLE}.user ;;
   }
