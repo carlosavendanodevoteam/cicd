@@ -58,5 +58,5 @@ jobs:
         run: |
           curl -X POST \
           -H "Content-Type: application/json" \
-          -d '{"token": "${{ secrets.LOOKER_DEPLOY_SECRET }}"}' \
+          -d '{"token": "${{ secrets.LOOKER_WEBHOOK_SECRET }}"}' \
           "https://nubalia.cloud.looker.com/webhooks/projects/pruebas_looker_sheila_dev/deploy"
