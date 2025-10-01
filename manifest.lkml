@@ -14,7 +14,6 @@
 #rule: E7{} # Explore label 25-char max
 #rule: T1{} # Triggers use datagroups
 #rule: T2{} # Primary keys in DT
-#rule: H1{} # Hoist identifiers
 #rule: H2{} # Group fields
 #rule: H3{} # Sort-group groups
 #rule: H4{} # Group more

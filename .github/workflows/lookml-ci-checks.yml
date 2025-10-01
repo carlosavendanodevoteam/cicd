@@ -50,7 +50,18 @@ jobs:
           LOOKER_CLIENT_SECRET: ${{ secrets.LOOKER_CLIENT_SECRET }}
         run: |
           pip install spectacles
-          spectacles sql --project pruebas_looker_sheila_dev
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            spectacles sql --project pruebas_looker_sheila_dev --branch ${{ github.base_ref }}
+            spectacles lookml --project pruebas_looker_sheila_dev --branch ${{ github.head_ref }}
+            spectacles content --project pruebas_looker_sheila_dev --branch ${{ github.base_ref }}
+            spectacles assert --project pruebas_looker_sheila_dev --branch ${{ github.base_ref }}
+
+          else
+            spectacles sql --project pruebas_looker_sheila_dev --branch develop
+            spectacles lookml --project pruebas_looker_sheila_dev --branch develop
+            spectacles content --project pruebas_looker_sheila_dev --branch develop
+            spectacles assert --project pruebas_looker_sheila_dev --branch develop
+          fi
 
       # --- SECCIÓN DE DEPLOY ---
       - name: Deploy to Looker
