@@ -15,14 +15,14 @@ view: order_items {
   dimension: lifetime_orders {
     description: "The total number of orders for each user"
     type: number
-    sql: ${TABLE}.lifetime_order ;;
+    sql: ${TABLE}.order_id ;;
   }
 
   dimension_group: most_recent_purchase {
     description: "The date when each user last ordered"
     type: time
     timeframes: [date, week, month, year]
-    sql: ${TABLE}.most_recent_purchase_at ;;
+    sql: ${TABLE}.created_at ;;
   }
 
   measure: total_lifetime_orders {
