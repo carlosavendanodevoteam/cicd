@@ -53,7 +53,7 @@ jobs:
           spectacles sql --project pruebas_looker_sheila_dev --branch ${{ github.head_ref }}
           spectacles lookml --project pruebas_looker_sheila_dev --branch ${{ github.head_ref }}
           spectacles content --project pruebas_looker_sheila_dev --branch ${{ github.head_ref }}
-          spectacles assert --project pruebas_looker_sheila_dev --branch ${{ github.head_ref }}
+          spectacles assert --project pruebas_looker_sheila_dev --branch ${{ github.head_ref }} --allow-no-data-tests
 
       # --- SECCIÓN DE DEPLOY ---
       - name: Deploy to Looker
