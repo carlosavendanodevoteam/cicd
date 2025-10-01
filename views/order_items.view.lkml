@@ -4,9 +4,9 @@ view: order_items {
 
   # Define your dimensions and measures here, like this:
   dimension: user_id {
-    description: "Unique ID for each user that has ordered"
+
     type: number
-    sql: ${TABLE}.user_id ;;
+    sql: ${TABLE}.us ;;
   }
 
   dimension: lifetime_orders {
