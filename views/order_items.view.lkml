@@ -4,6 +4,7 @@ view: order_items {
 
   # Define your dimensions and measures here, like this:
   dimension: pk_user_id {
+    hidden: yes
     label: "ID"
     primary_key: yes
     description: "user"
