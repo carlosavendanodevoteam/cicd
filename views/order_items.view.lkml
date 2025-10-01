@@ -6,7 +6,7 @@ view: order_items {
   dimension: user_id {
 
     type: number
-    sql: ${TABLE}.us ;;
+    sql: ${TABLE}.user ;;
   }
 
   dimension: lifetime_orders {
