@@ -1,5 +1,7 @@
 connection: "public_data"
 
+include: "/views/*.view.lkml"
+
 datagroup: pruebas_looker_sheila_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
@@ -7,3 +9,4 @@ datagroup: pruebas_looker_sheila_default_datagroup {
 
 persist_with: pruebas_looker_sheila_default_datagroup
 
+explore: order_items {}
