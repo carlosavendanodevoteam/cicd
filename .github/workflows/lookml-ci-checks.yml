@@ -50,7 +50,7 @@ jobs:
           LOOKER_CLIENT_SECRET: ${{ secrets.LOOKER_CLIENT_SECRET }}
         run: |
           pip install spectacles
-          spectacles sql --project pruebas_looker_sheila_dev
+          spectacles sql --project pruebas_looker_sheila_dev --explores pruebas_looker_sheila/order_items
 
       # --- SECCIÓN DE DEPLOY ---
       - name: Deploy to Looker
