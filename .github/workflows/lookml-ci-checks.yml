@@ -50,10 +50,10 @@ jobs:
           LOOKER_CLIENT_SECRET: ${{ secrets.LOOKER_CLIENT_SECRET }}
         run: |
           pip install spectacles
-          spectacles sql --project pruebas_looker_sheila_dev
-          spectacles lookml --project pruebas_looker_sheila_dev
-          spectacles content --project pruebas_looker_sheila_dev
-          spectacles assert --project pruebas_looker_sheila_dev
+          spectacles sql --project pruebas_looker_sheila_dev --branch ${{ github.head_ref }}
+          spectacles lookml --project pruebas_looker_sheila_dev --branch ${{ github.head_ref }}
+          spectacles content --project pruebas_looker_sheila_dev --branch ${{ github.head_ref }}
+          spectacles assert --project pruebas_looker_sheila_dev --branch ${{ github.head_ref }}
 
       # --- SECCIÓN DE DEPLOY ---
       - name: Deploy to Looker
