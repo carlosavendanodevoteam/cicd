@@ -50,7 +50,7 @@ jobs:
           LOOKER_CLIENT_SECRET: ${{ secrets.LOOKER_CLIENT_SECRET }}
         run: |
           pip install spectacles
-          spectacles sql --project public_data
+          spectacles sql --project pruebas_looker_sheila_dev
 
       # --- SECCIÓN DE DEPLOY ---
       - name: Deploy to Looker
@@ -59,4 +59,4 @@ jobs:
           curl -X POST \
           -H "Content-Type: application/json" \
           -d '{"token": "${{ secrets.LOOKER_DEPLOY_SECRET }}"}' \
-          "https://nubalia.cloud.looker.com/webhooks/projects/YOUR_PROJECT_NAME/deploy"
+          "https://nubalia.cloud.looker.com/webhooks/projects/pruebas_looker_sheila_dev/deploy"
