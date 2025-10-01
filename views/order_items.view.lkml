@@ -9,13 +9,13 @@ view: order_items {
     primary_key: yes
     description: "user"
     type: number
-    sql: ${TABLE}.user ;;
+    sql: ${TABLE}.user_id ;;
   }
 
   dimension: lifetime_orders {
     description: "The total number of orders for each user"
     type: number
-    sql: ${TABLE}.lifetime_orders ;;
+    sql: ${TABLE}.lifetime_order ;;
   }
 
   dimension_group: most_recent_purchase {
