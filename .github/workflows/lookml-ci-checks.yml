@@ -26,7 +26,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # --- SECCIÓN DE LAMS ---
+      # --- LAMS ---
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -37,7 +37,7 @@ jobs:
           npm install -g @looker/look-at-me-sideways@5
           lams --reporting=save-yes
 
-      # --- SECCIÓN DE SPECTACLES ---
+      # --- SPECTACLES ---
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -63,7 +63,7 @@ jobs:
             spectacles assert --project pruebas_looker_sheila_dev --branch develop
           fi
 
-      # --- SECCIÓN DE DEPLOY ---
+      # --- DEPLOY ---
       - name: Deploy to Looker
         if: github.event_name == 'push'
         run: |
