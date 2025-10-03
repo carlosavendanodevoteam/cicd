@@ -2,7 +2,8 @@ view: order_items {
   # You can specify the table name if it's different from the view name:
   sql_table_name: sheila-gallardo-sandbox-01.looker_example.order_items ;;
 
-  dimension: pk_order_item_id {
+#BREAK LAMS RULE
+  dimension: order_item_id {
     description: "PK"
     hidden: yes
     primary_key: yes
