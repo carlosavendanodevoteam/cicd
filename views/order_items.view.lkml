@@ -8,8 +8,7 @@ view: order_items {
     hidden: yes
     primary_key: yes
     type: number
-    # SQL ERROR (SPECTACLES TEST)
-    sql: ${TABLE}.id_ ;;
+    sql: ${TABLE}.id ;;
   }
 
   # Define your dimensions and measures here, like this:
@@ -17,7 +16,8 @@ view: order_items {
     label: "ID"
     description: "user"
     type: number
-    sql: ${TABLE}.user_id ;;
+    # data test (spectacles)
+    sql: null ;;
   }
 
   dimension: order_id {
