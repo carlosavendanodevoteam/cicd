@@ -1,6 +1,6 @@
 connection: "public_data"
 
-include: "/views/*.view.lkml"
+include: "/views/**/*.view.lkml"
 include: "/data_test/*.lkml"
 
 datagroup: pruebas_looker_sheila_default_datagroup {
