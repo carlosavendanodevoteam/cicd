@@ -45,22 +45,22 @@ jobs:
 
       - name: Install and Run Spectacles
         env:
-          LOOKER_BASE_URL: https://nubalia.cloud.looker.com
+          LOOKER_BASE_URL: ${{ secrets.INSTANCE_URL }}
           LOOKER_CLIENT_ID: ${{ secrets.LOOKER_CLIENT_ID }}
           LOOKER_CLIENT_SECRET: ${{ secrets.LOOKER_CLIENT_SECRET }}
         run: |
           pip install spectacles
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-            spectacles sql --project pruebas_looker_sheila_dev --branch ${{ github.base_ref }}
-            spectacles lookml --project pruebas_looker_sheila_dev --branch ${{ github.head_ref }}
-            spectacles content --project pruebas_looker_sheila_dev --branch ${{ github.base_ref }}
-            spectacles assert --project pruebas_looker_sheila_dev --branch ${{ github.base_ref }}
+            spectacles sql --project ${{ secrets.PROJECT_NAME }} --branch ${{ github.base_ref }}
+            spectacles lookml --project ${{ secrets.PROJECT_NAME }} --branch ${{ github.head_ref }}
+            spectacles content --project ${{ secrets.PROJECT_NAME }} --branch ${{ github.base_ref }}
+            spectacles assert --project ${{ secrets.PROJECT_NAME }} --branch ${{ github.base_ref }}
 
           else
-            spectacles sql --project pruebas_looker_sheila_dev --branch develop
-            spectacles lookml --project pruebas_looker_sheila_dev --branch develop
-            spectacles content --project pruebas_looker_sheila_dev --branch develop
-            spectacles assert --project pruebas_looker_sheila_dev --branch develop
+            spectacles sql --project ${{ secrets.PROJECT_NAME }} --branch develop
+            spectacles lookml --project ${{ secrets.PROJECT_NAME }} --branch develop
+            spectacles content --project ${{ secrets.PROJECT_NAME }} --branch develop
+            spectacles assert --project ${{ secrets.PROJECT_NAME }} --branch develop
           fi
 
       # --- DEPLOY ---
@@ -70,4 +70,4 @@ jobs:
           curl -X POST \
           -H "Content-Type: application/json" \
           -d '{"token": "${{ secrets.LOOKER_WEBHOOK_SECRET }}"}' \
-          "https://nubalia.cloud.looker.com/webhooks/projects/pruebas_looker_sheila_dev/deploy"
+          "${{ secrets.INSTANCE_URL }}/webhooks/projects/${{ secrets.PROJECT_NAME }}/deploy"
