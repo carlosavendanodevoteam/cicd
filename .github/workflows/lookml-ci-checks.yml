@@ -4,11 +4,11 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "develop" branch
+  # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "develop" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -57,10 +57,10 @@ jobs:
             spectacles assert --project ${{ secrets.PROJECT_NAME }} --branch ${{ github.base_ref }}
 
           else
-            spectacles sql --project ${{ secrets.PROJECT_NAME }} --branch develop
-            spectacles lookml --project ${{ secrets.PROJECT_NAME }} --branch develop
-            spectacles content --project ${{ secrets.PROJECT_NAME }} --branch develop
-            spectacles assert --project ${{ secrets.PROJECT_NAME }} --branch develop
+            spectacles sql --project ${{ secrets.PROJECT_NAME }} --branch master
+            spectacles lookml --project ${{ secrets.PROJECT_NAME }} --branch master
+            spectacles content --project ${{ secrets.PROJECT_NAME }} --branch master
+            spectacles assert --project ${{ secrets.PROJECT_NAME }} --branch master
           fi
 
       # --- DEPLOY ---
