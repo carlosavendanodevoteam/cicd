@@ -1,0 +1,73 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "develop" branch
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # --- LAMS ---
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install and Run LAMS
+        run: |
+          npm install -g @looker/look-at-me-sideways@5
+          lams --reporting=save-yes
+
+      # --- SPECTACLES ---
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install and Run Spectacles
+        env:
+          LOOKER_BASE_URL: ${{ secrets.INSTANCE_URL }}
+          LOOKER_CLIENT_ID: ${{ secrets.LOOKER_CLIENT_ID }}
+          LOOKER_CLIENT_SECRET: ${{ secrets.LOOKER_CLIENT_SECRET }}
+        run: |
+          pip install spectacles
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            spectacles sql --project ${{ secrets.PROJECT_NAME }} --branch ${{ github.base_ref }}
+            spectacles lookml --project ${{ secrets.PROJECT_NAME }} --branch ${{ github.head_ref }}
+            spectacles content --project ${{ secrets.PROJECT_NAME }} --branch ${{ github.base_ref }}
+            spectacles assert --project ${{ secrets.PROJECT_NAME }} --branch ${{ github.base_ref }}
+
+          else
+            spectacles sql --project ${{ secrets.PROJECT_NAME }} --branch develop
+            spectacles lookml --project ${{ secrets.PROJECT_NAME }} --branch develop
+            spectacles content --project ${{ secrets.PROJECT_NAME }} --branch develop
+            spectacles assert --project ${{ secrets.PROJECT_NAME }} --branch develop
+          fi
+
+      # --- DEPLOY ---
+      - name: Deploy to Looker
+        if: github.event_name == 'push'
+        run: |
+          curl -X POST \
+          -H "Content-Type: application/json" \
+          -d '{"token": "${{ secrets.LOOKER_WEBHOOK_SECRET }}"}' \
+          "${{ secrets.INSTANCE_URL }}/webhooks/projects/${{ secrets.PROJECT_NAME }}/deploy"
