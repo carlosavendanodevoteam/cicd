@@ -8,7 +8,7 @@ view: order_items {
     hidden: yes
     primary_key: yes
     type: number
-    sql: ${TABLE}.vcidh ;;
+    sql: ${TABLE}.vcidhh ;;
   }
 
   # Define your dimensions and measures here, like this:
